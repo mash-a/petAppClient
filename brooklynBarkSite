@@ -1,0 +1,33 @@
+BKBARK - quality pet care
+
+
+database:
+user can have many pets
+- can login
+- can add pet
+	- choose dog or cat/other pet
+	- pet name
+- can fill in profile of pet ( which is different depending on the type of pet)
+	- can upload photos of pets
+ 	- special needs
+	- medication
+	- feeding specifications
+	- Walk Requirements (time/days):
+	- Specific pee/poop spots
+	- good with other dogs?
+	- Children ?
+	- Harness/collar
+	- squirrels/pigeons
+	- scavenger?
+	- allergies
+	- rain
+	- thunder
+	- loud noises
+	- treats
+	- other - 
+	HOUSE QUESTIONS
+	· Where are towels and dog cleaning supplies kept for those rainy or messy days?
+	· Where is the leash kept?
+	· Where is the water bowl kept?
+	· Do they need to be crated and if so, where?
+	· Where are treats and food kept? 
