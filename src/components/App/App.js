@@ -12,7 +12,7 @@ class App extends Component {
     loading: true,
   }
 
-  componentWillMount = async () => {
+  componentDidMount = async () => {
     const response = await axios.get('/api/petApp')
     const json = await response.data;
     console.log(json.randomURL)
@@ -24,7 +24,7 @@ class App extends Component {
     if(this.props.location === ""){
       mainComponent = <Main {...this.props}/>
     } else if (this.props.location === "secret"){
-      mainComponent = <Secret />
+      mainComponent = this.props.auth.isAuthenticated() ? <Secret {...this.props}/> : <NotFound />
     } else if(this.props.location === "callback"){
       mainComponent = <Callback />
     } else {
@@ -36,8 +36,8 @@ class App extends Component {
           <h1>Welcome {this.props.name}</h1>
         </header>
         {
-          !this.state.loading && 
-          <LoginForm />
+          // !this.state.loading && 
+          // <LoginForm />
         }
         {mainComponent}
       </div>

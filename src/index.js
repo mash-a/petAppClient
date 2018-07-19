@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App.js';
+import Auth from './utils/Auth';
+
+const auth = new Auth();
 
 let state = {};
 window.setState = changes => {
@@ -10,9 +13,12 @@ window.setState = changes => {
 }
 
 /* eslint no-restricted-globals: 0*/
+let username = auth.getProfile().given_name || "Stranger";
+
 let initialState = {
-    name: 'Mariya',
-    location: location.pathname.replace(/^\/?|\/$/g, "")
+    name: username,
+    location: location.pathname.replace(/^\/?|\/$/g, ""),
+    auth
 }
 
 window.setState(initialState);
