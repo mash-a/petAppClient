@@ -4,6 +4,7 @@ import LoginForm from '../LoginForm/LoginForm';
 import Main from '../Main';
 import Secret from '../Secret'; 
 import NotFound from '../NotFound';
+import Callback from '../Callback';
 
 class App extends Component {
 
@@ -21,9 +22,11 @@ class App extends Component {
   render() {
     let mainComponent = "";
     if(this.props.location === ""){
-      mainComponent = <Main />
+      mainComponent = <Main {...this.props}/>
     } else if (this.props.location === "secret"){
       mainComponent = <Secret />
+    } else if(this.props.location === "callback"){
+      mainComponent = <Callback />
     } else {
       mainComponent = <NotFound />
     }
