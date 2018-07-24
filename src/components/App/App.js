@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import LoginForm from '../LoginForm/LoginForm';
 import Main from '../Main';
-import Secret from '../Secret'; 
+import UserProfile from '../UserProfile'; 
 import NotFound from '../NotFound';
 import Callback from '../Callback';
 
@@ -23,8 +23,8 @@ class App extends Component {
     let mainComponent = "";
     if(this.props.location === ""){
       mainComponent = <Main {...this.props}/>
-    } else if (this.props.location === "secret"){
-      mainComponent = this.props.auth.isAuthenticated() ? <Secret {...this.props}/> : <NotFound />
+    } else if (this.props.location === "profile"){
+      mainComponent = this.props.auth.isAuthenticated() ? <UserProfile {...this.props}/> : <NotFound />
     } else if(this.props.location === "callback"){
       mainComponent = <Callback />
     } else {
@@ -38,6 +38,7 @@ class App extends Component {
         {
           // !this.state.loading && 
           // <LoginForm />
+          console.log(this.props.auth.access_token)
         }
         {mainComponent}
       </div>

@@ -18,7 +18,7 @@ let username = auth.getProfile().given_name || "Stranger";
 let initialState = {
     name: username,
     location: location.pathname.replace(/^\/?|\/$/g, ""),
-    auth
+    auth,
 }
 
 window.setState(initialState);

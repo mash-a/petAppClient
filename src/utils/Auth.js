@@ -2,7 +2,7 @@
 import auth0 from 'auth0-js';
 import jwtDecode from 'jwt-decode';
 
-const LOGIN_SUCCESS_PAGE = "/secret";
+const LOGIN_SUCCESS_PAGE = "/profile";
 const LOGIN_FAILURE_PAGE = "/"; 
 
 class Auth {
@@ -10,7 +10,7 @@ class Auth {
         domain: 'mash-a.auth0.com',
         clientID: 'FGyvququx8Zf8uU451YElo6qEt9EBNrb',
         redirectUri: 'http://localhost:3000/callback' || 'http://localhost:3004/callback',
-        audience: 'https://mash-a.auth0.com/userinfo',
+        audience: 'http://localhost:3004/api/petApp',
         responseType: 'token id_token',
         scope: 'openid profile'
     })
@@ -20,7 +20,10 @@ class Auth {
         this.logout = this.logout.bind(this);
         this.handleAuthentication = this.handleAuthentication.bind(this);
         this.isAuthenticated = this.isAuthenticated.bind(this);
+        this.getUserProfile = this.getUserProfile.bind(this);
     }
+
+    userProfile;
 
     //takes users to the login page
     login() {
@@ -45,10 +48,6 @@ class Auth {
         });
     }
 
-    setSession = (authResult) => {
-       
-    }
-
     isAuthenticated() {
         // Check whether the current time is past the 
         // Access Token's expiry time
@@ -71,6 +70,24 @@ class Auth {
         } else {
             return {};
         }
+    }
+
+    getAccessToken() {
+        const accessToken = localStorage.getItem('access_token');
+        if(!accessToken){
+            throw new Error('No access token found');
+        }
+        return accessToken;
+    }
+
+    getUserProfile(cb) {
+        let accessToken = this.getAccessToken();
+        this.auth0.client.userInfo(accessToken, (err, profile) => {
+            if(profile){
+                this.userProfile = profile;
+            }
+            cb(err, profile);
+        })
     }
 }
 
