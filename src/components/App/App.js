@@ -40,7 +40,7 @@ class App extends Component {
         {
           // !this.state.loading && 
           // <LoginForm />
-          
+            
         }
         {mainComponent}
       </div>
