@@ -6,7 +6,7 @@ class Main extends Component {
         return (
             <div>
                 <p>Hello {this.props.name}</p><br />
-                Do you want to see your profile? <a href='/profile'>Click Here</a>
+                Do you want to see your profile? <a href='/profile'>Click Here</a>  
                 {!this.props.auth.isAuthenticated() &&
                 <div>
                     <hr />

@@ -6,7 +6,8 @@ class DogForm extends Component {
             <form>
                 <input
                 value="name"
-                ></input>
+                >
+                </input>
             </form>
         )
     }

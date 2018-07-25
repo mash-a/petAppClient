@@ -18,9 +18,9 @@ class UserProfile extends Component {
         const { profile } = this.state;
         return (
             <div>
-                This is a your profile, {profile.given_name}. Jump back to <a href='/'>Home</a>
+                This is a your profile, {profile.given_name}. Jump back to <a href='/'>Home</a> or Ping<a href='/ping'>Click Here</a>
                 <br />
-                <img src={profile.picture} alt="profile picture" />
+                <img src={profile.picture} alt="profile" />
                 <h3>{profile.name}</h3>
                 
                 <button>Add Pet</button>

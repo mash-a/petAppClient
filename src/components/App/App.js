@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import LoginForm from '../LoginForm/LoginForm';
 import Main from '../Main';
 import UserProfile from '../UserProfile'; 
 import NotFound from '../NotFound';
 import Callback from '../Callback';
+import Ping from '../Ping';
 
 class App extends Component {
 
@@ -21,12 +21,14 @@ class App extends Component {
 
   render() {
     let mainComponent = "";
-    if(this.props.location === ""){
+    if(this.props.location === "") {
       mainComponent = <Main {...this.props}/>
-    } else if (this.props.location === "profile"){
+    } else if (this.props.location === "profile") {
       mainComponent = this.props.auth.isAuthenticated() ? <UserProfile {...this.props}/> : <NotFound />
-    } else if(this.props.location === "callback"){
+    } else if(this.props.location === "callback") {
       mainComponent = <Callback />
+    } else if (this.props.location === 'ping') {
+      mainComponent = this.props.auth.isAuthenticated() ? <Ping {...this.props} /> : <NotFound />
     } else {
       mainComponent = <NotFound />
     }
@@ -38,7 +40,7 @@ class App extends Component {
         {
           // !this.state.loading && 
           // <LoginForm />
-          console.log(this.props.auth.access_token)
+          
         }
         {mainComponent}
       </div>

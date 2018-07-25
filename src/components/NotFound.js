@@ -5,6 +5,8 @@ class NotFound extends Component {
         return (
             <div>
                 <p>Uh oh! Not Found!</p>
+                <hr />
+                Jump back to <a href='/'>Home</a>
             </div>
         )
     }

@@ -1,18 +1,19 @@
 /* eslint no-restricted-globals: 0 */
 import auth0 from 'auth0-js';
 import jwtDecode from 'jwt-decode';
+import { AUTH_CONFIG } from './constants';
 
 const LOGIN_SUCCESS_PAGE = "/profile";
 const LOGIN_FAILURE_PAGE = "/"; 
 
 class Auth {
     auth0 = new auth0.WebAuth({
-        domain: 'mash-a.auth0.com',
-        clientID: 'FGyvququx8Zf8uU451YElo6qEt9EBNrb',
-        redirectUri: 'http://localhost:3000/callback' || 'http://localhost:3004/callback',
-        audience: 'http://localhost:3004/api/petApp',
-        responseType: 'token id_token',
-        scope: 'openid profile'
+        domain: AUTH_CONFIG.domain,
+        clientID: AUTH_CONFIG.clientId,
+        redirectUri: AUTH_CONFIG.redirectUri,
+        audience: AUTH_CONFIG.audience,
+        responseType: AUTH_CONFIG.responseType,
+        scope: AUTH_CONFIG.scope,
     })
 
     constructor() {
@@ -60,6 +61,7 @@ class Auth {
         localStorage.removeItem('access_token');
         localStorage.removeItem('id_token');
         localStorage.removeItem('expires_at');
+        localStorage.removeItem('given_name');
         // navigate to the home route
         location.pathname = LOGIN_FAILURE_PAGE;
     }
