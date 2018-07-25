@@ -21,4 +21,4 @@ yarn-debug.log*
 yarn-error.log*
 
 #constants for auth0
-/src/utils/constants
+.constants.js
