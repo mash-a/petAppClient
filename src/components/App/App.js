@@ -7,16 +7,19 @@ import Callback from '../Callback';
 import Ping from '../Ping';
 
 class App extends Component {
-
-  state = {
-    loading: true,
+  constructor(props){
+    super(props)
+    this.state = {
+      loading: true,
+      viewPet: false,
+    }
   }
 
   componentDidMount = async () => {
     const response = await axios.get('/api/petApp')
     const json = await response.data;
     console.log(json.randomURL)
-    if(json) this.setState({ loading:false })
+    if(json) this.setState({ loading: false })
   }
 
   render() {
@@ -24,7 +27,7 @@ class App extends Component {
     if(this.props.location === "") {
       mainComponent = <Main {...this.props}/>
     } else if (this.props.location === "profile") {
-      mainComponent = this.props.auth.isAuthenticated() ? <UserProfile {...this.props}/> : <NotFound />
+      mainComponent = this.props.auth.isAuthenticated() ? <UserProfile {...this.props} /> : <NotFound />
     } else if(this.props.location === "callback") {
       mainComponent = <Callback />
     } else if (this.props.location === 'ping') {

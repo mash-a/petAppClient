@@ -81,7 +81,7 @@ class Auth {
         }
         return accessToken;
     }
-
+    //cb
     getUserProfile(cb) {
         let accessToken = this.getAccessToken();
         this.auth0.client.userInfo(accessToken, (err, profile) => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class DogForm extends Component {
+class CatAndOtherPetForm extends Component {
     render() {
         return (
             <form>
@@ -21,11 +21,11 @@ class DogForm extends Component {
                 >
                 </input>
                 <input
-                value="walk requirements"
+                value="hiding spots"
                 >
                 </input>
                 <input
-                value="Date of Birth"
+                value="birthday"
                 >
                 </input>
             </form>
@@ -45,4 +45,4 @@ class DogForm extends Component {
 //       table.string('other');
 //       table.string('feeding')
 
-export default DogForm;
+export default CatAndOtherPetForm;

@@ -14,7 +14,7 @@ class Ping extends Component {
     };
 
     ping() {
-        axios.get('http://localhost:3004/api/petApp/public')
+        axios.get('http://localhost:3004/api/petApp/private')
             .then(res => this.setState({ message: res.data.message }))
             .catch(err => this.setState({ message: err.message }));
     };
@@ -37,7 +37,7 @@ class Ping extends Component {
                     !isAuthenticated() && 
                     <p>Log in to make this call</p>
                 }
-                <button onClick={this.ping}>Ping</button>
+                <button onClick={this.ping}>Unsecured Ping</button>
                 {
                     isAuthenticated() && 
                     <button onClick={this.securedPing}> Call Private</button>

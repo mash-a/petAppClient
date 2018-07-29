@@ -13,7 +13,7 @@ window.setState = changes => {
 }
 
 /* eslint no-restricted-globals: 0*/
-let username = auth.getProfile().given_name || "Stranger";
+let username = auth.getProfile().given_name || "";
 
 let initialState = {
     name: username,
