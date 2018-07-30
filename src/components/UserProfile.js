@@ -8,20 +8,38 @@ class UserProfile extends Component {
     constructor(props) {
         super(props)
         this.apiPost = this.apiPost.bind(this);
-        this.onClick = this.onClick.bind(this);
-        this.state = {profile : {}}
+        this.onDogClick = this.onDogClick.bind(this);
+        this.onCatClick = this.onCatClick.bind(this);
+        this.setProfile = this.setProfile.bind(this);
+        this.state = {
+            profile : {},
+            dogs: [],
+            catsOrOtherPets: [],
+            addCatOrPet: false,
+            addDog: false,
+            currentProfile: {
+                id: 0,
+            }
+        }
     }
 
     componentDidMount = async () => {
-        const {getUserProfile, getProfile, getAccessToken} = this.props.auth;
+        const { getProfile, getAccessToken} = this.props.auth;
+        const id = this.state.currentProfile.id
         await this.setProfile();
+        const user = await axios.get(`/users/${id}`);
+        const profile = getProfile();
+        const accessToken = getAccessToken();
+        console.log('accessToken', accessToken)
+        console.log(user)
+        this.apiPost(profile, accessToken)
+        console.log(profile)
     }
 
     setProfile() {
         const { getUserProfile } = this.props.auth;
         getUserProfile((err, profile) => {
-                    this.setState({profile})
-                    console.log(profile)
+            this.setState({profile})
         })
     }
 
@@ -31,23 +49,41 @@ class UserProfile extends Component {
         .catch(err => console.error(err));
     }
 
-    onClick() {
-
+    onDogClick(e) {
+        e.preventDefault();
+        this.setState({addDog: true});
     } 
+
+    onCatClick(e) {
+        e.preventDefault();
+        this.setState({addCatOrPet: true});
+    }
+
+    apiPatch(id) {
+
+    }
     
     render() {        
         const { profile } = this.state;
-        console.log(profile)
         return (
             <div>
-                This is a your profile, {profile.given_name}. Jump back to <a href='/'>Home</a> or Ping<a href='/ping'>Click Here</a>
+                This is your profile, {profile.given_name}. Jump back to <a href='/'>Home</a> or Ping<a href='/ping'>Click Here</a>
                 <br />
                 
                 <h3>{profile.name}</h3>
                 
-                <button>Add Pet</button>
-                <DogForm />
-                <CatsAndOtherPetForm />
+                <button>Edit Profile</button>
+                <button>Add Cat</button>
+                <button>Add Dog</button>
+                {
+                    this.state.addDog && 
+                    <DogForm />
+                }
+                {
+                    this.state.addCatOrPet && 
+                    <CatsAndOtherPetForm />
+                }
+                
                 <button onClick={this.props.auth.logout}>Logout</button>    
                 <a 
                     href='https://dashboard.petchecktechnology.com/' 

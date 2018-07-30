@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App.js';
 import Auth from './utils/Auth';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const auth = new Auth();
 
