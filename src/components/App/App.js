@@ -5,6 +5,8 @@ import UserProfile from '../UserProfile';
 import NotFound from '../NotFound';
 import Callback from '../Callback';
 import Ping from '../Ping';
+import TopNavbar from '../TopNavbar';
+
 
 class App extends Component {
   constructor(props){
@@ -37,14 +39,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <header> 
-          <h1>Welcome {this.props.name}</h1>
-        </header>
-        {
-          // !this.state.loading && 
-          // <LoginForm />
-            
-        }
+        <TopNavbar />
         {mainComponent}
       </div>
     );
