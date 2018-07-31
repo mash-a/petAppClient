@@ -6,6 +6,9 @@ import NotFound from '../NotFound';
 import Callback from '../Callback';
 import Ping from '../Ping';
 import TopNavbar from '../TopNavbar';
+import HomePage from '../HomePage';
+
+import './App.css';
 
 
 class App extends Component {
@@ -26,21 +29,25 @@ class App extends Component {
 
   render() {
     let mainComponent = "";
-    if(this.props.location === "") {
+    if(this.props.location === "main") {
       mainComponent = <Main {...this.props}/>
     } else if (this.props.location === "profile") {
       mainComponent = this.props.auth.isAuthenticated() ? <UserProfile {...this.props} /> : <NotFound />
     } else if(this.props.location === "callback") {
       mainComponent = <Callback />
-    } else if (this.props.location === 'ping') {
+    } else if (this.props.location === "ping") {
       mainComponent = this.props.auth.isAuthenticated() ? <Ping {...this.props} /> : <NotFound />
+    }  else if (this.props.location === "") {
+      mainComponent = <HomePage />
     } else {
       mainComponent = <NotFound />
     }
     return (
       <div className="App">
-        <TopNavbar />
-        {mainComponent}
+        <TopNavbar {...this.props}/>
+        <div className ="body">
+          {mainComponent}
+        </div>
       </div>
     );
   }

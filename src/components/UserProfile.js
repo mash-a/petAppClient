@@ -11,6 +11,7 @@ class UserProfile extends Component {
         this.onDogClick = this.onDogClick.bind(this);
         this.onCatClick = this.onCatClick.bind(this);
         this.setProfile = this.setProfile.bind(this);
+        this.checkForUser = this.checkForUser.bind(this);
         this.state = {
             profile : {},
             dogs: [],
@@ -18,7 +19,9 @@ class UserProfile extends Component {
             addCatOrPet: false,
             addDog: false,
             currentProfile: {
-                id: 0,
+                id: null,
+                access_token: '',
+
             }
         }
     }
@@ -27,13 +30,30 @@ class UserProfile extends Component {
         const { getProfile, getAccessToken} = this.props.auth;
         const id = this.state.currentProfile.id
         await this.setProfile();
-        const user = await axios.get(`/users/${id}`);
+        const user = await axios.get(`/users`);
+        const json = await user.data;
+        //console.log(json.users)
         const profile = getProfile();
         const accessToken = getAccessToken();
-        console.log('accessToken', accessToken)
-        console.log(user)
-        this.apiPost(profile, accessToken)
-        console.log(profile)
+        //console.log('accessToken', accessToken)
+        //console.log(user)
+        
+        //console.log(this.checkForUser(json.users, profile.sub))
+        if(this.checkForUser(json.users, profile.sub)) {
+            this.setState({profile: this.checkForUser(json.users, profile.sub)})
+        } else {
+            this.apiPost(profile, accessToken)
+        }
+        console.log(this.state.profile)
+    }
+
+    //check if user exists in database
+    checkForUser(arrOfUsers, userId) {
+        const user = arrOfUsers.filter(user => user.user_id === userId)[0]
+        if(user){
+            return user;
+        }
+        return false;
     }
 
     setProfile() {

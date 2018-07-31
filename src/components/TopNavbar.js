@@ -5,16 +5,9 @@ import {
     NavbarBrand,
     Nav, 
     NavItem,
-    NavLink,
-    Media
+    NavLink
 } from 'reactstrap';
-import TopNavbarStyle from './ComponentCSS/TopNavbarStyle.css'
-
-var logo = (
-    <span>
-   
-    </span>
-);
+import './ComponentCSS/TopNavbarStyle.css'
 
 class TopNavbar extends Component {
     render() {
@@ -24,6 +17,21 @@ class TopNavbar extends Component {
                     <NavbarBrand>
                         <img src={require('../bkbarklogoletters.svg')}/>
                     </NavbarBrand>
+                    <Nav>
+                        <NavItem>
+                        {
+                            this.props.auth.isAuthenticated() &&
+                            <NavLink href="/profile">Profile</NavLink>
+                        }
+                        {
+                            !this.props.auth.isAuthenticated() &&
+                            <NavLink href="/main">Login or Sign Up</NavLink>
+                        }
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/">Home</NavLink>
+                        </NavItem>
+                    </Nav>
                  </Navbar>
                  
             </div>
