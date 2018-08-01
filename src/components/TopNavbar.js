@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
     Navbar,
-    NavbarToggler, 
     NavbarBrand,
     Nav, 
     NavItem,
@@ -15,7 +14,7 @@ class TopNavbar extends Component {
             <div>
                  <Navbar className="navbar">
                     <NavbarBrand>
-                        <img src={require('../bkbarklogoletters.svg')}/>
+                        <img src={require('../bkbarklogoletters.svg')} alt=""/>
                     </NavbarBrand>
                     <Nav>
                         <NavItem>
@@ -25,11 +24,14 @@ class TopNavbar extends Component {
                         }
                         {
                             !this.props.auth.isAuthenticated() &&
-                            <NavLink href="/main">Login or Sign Up</NavLink>
+                            <NavLink href="/main">Login/Sign Up</NavLink>
                         }
                         </NavItem>
                         <NavItem>
                             <NavLink href="/">Home</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="">Services</NavLink>
                         </NavItem>
                     </Nav>
                  </Navbar>

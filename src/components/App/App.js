@@ -7,6 +7,7 @@ import Callback from '../Callback';
 import Ping from '../Ping';
 import TopNavbar from '../TopNavbar';
 import HomePage from '../HomePage';
+import Footer from '../Footer';
 
 import './App.css';
 
@@ -21,10 +22,11 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    const response = await axios.get('/api/petApp')
-    const json = await response.data;
-    console.log(json.randomURL)
-    if(json) this.setState({ loading: false })
+    //add google api to here
+    // const response = await axios.get('/api/petApp')
+    // const json = await response.data;
+    // console.log(json.randomURL)
+    // if(json) this.setState({ loading: false })
   }
 
   render() {
@@ -48,6 +50,7 @@ class App extends Component {
         <div className ="body">
           {mainComponent}
         </div>
+        <Footer />
       </div>
     );
   }

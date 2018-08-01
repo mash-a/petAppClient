@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 class Main extends Component {
     render() {
         return (
-            <div>
+            <div className="container">
                 <p>Hello {this.props.name}</p><br />
-                Do you want to see your profile? <a href='/profile'>Click Here</a>  
+                <a href='/profile'>Click Here</a>  
                 {!this.props.auth.isAuthenticated() &&
                 <div>
                     <hr />
