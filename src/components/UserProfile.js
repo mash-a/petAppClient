@@ -2,45 +2,34 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DogForm from './DogForm';
 import DogProfile from './DogProfile';
-// import CatsAndOtherPetForm from './CatAndOtherPetForm';
 
 class UserProfile extends Component {
     
     constructor(props) {
         super(props)
         this.apiPost = this.apiPost.bind(this);
-        this.onDogClick = this.onDogClick.bind(this);
-        //this.onCatClick = this.onCatClick.bind(this);
+        this.addDogClick = this.addDogClick.bind(this);
         this.setProfile = this.setProfile.bind(this);
         this.checkForUser = this.checkForUser.bind(this);
+        this.viewDogClick = this.viewDogClick.bind(this);
         this.state = {
             profile : {},
             dogs: [],
-            catsOrOtherPets: [],
+            editing: false,
             addDog: false,
+            viewDog: false,
+            headers: {},
             currentProfile: {
                 id: null,
-                access_token: '',
+                userId: '',
+                neighborhood: '',
+                displayName: ''
 
             },
-            // currentDog: {
-            //     id: null,
-            //     name: '',
-            //     medication: '', 
-            //     specialNeeds: '',
-            //     walkRequirements: '',
-            //     birthday: '',
-            //     temperament: '',
-            //     allergies: '',
-            //     loudNoises: '',
-            //     treats: true,
-            //     other: '',
-            //     feeding: '',
-            //     imgUrl: ''
-            // }
             currentDog: {
-                id: 1,
-                name: 'Betsy',
+                id: null,
+                userId: null,
+                name: '',
                 medication: '', 
                 specialNeeds: '',
                 walkRequirements: '',
@@ -53,6 +42,21 @@ class UserProfile extends Component {
                 feeding: '',
                 imgUrl: ''
             }
+            // currentDog: {
+            //     id: 1,
+            //     name: 'Betsy',
+            //     medication: '', 
+            //     specialNeeds: '',
+            //     walkRequirements: '',
+            //     birthday: '',
+            //     temperament: '',
+            //     allergies: '',
+            //     loudNoises: '',
+            //     treats: true,
+            //     other: '',
+            //     feeding: '',
+            //     imgUrl: ''
+            // }
         }
     }
 
@@ -75,13 +79,13 @@ class UserProfile extends Component {
             console.log(this.state.profile, 'line 45')
             const userId = this.state.profile.id
             const dogs = await axios.get(`/api/petApp/users/${userId}`, { headers })
-            this.setState({dogs: dogs.data})
+            this.setState({dogs: dogs.data, headers: headers})
            console.log(this.state.dogs)
         } else {
             this.apiPost(profile, accessToken, headers)
             // this.setState({profile: })
         }
-        console.log(this.state.profile.id);
+        console.log(this.state.headers);
     }
 
     //check if user exists in database
@@ -106,39 +110,77 @@ class UserProfile extends Component {
         .catch(err => console.error(err));
     }
 
-    onDogClick(e) {
+    addDogClick(e) {
         e.preventDefault();
-        this.setState({addDog: true});
+        this.state.addDog ? this.setState({addDog: false}) : this.setState({addDog: true});
     } 
 
-    apiPatch(id) {
+    viewDogClick(e) {
+        e.preventDefault();
+        this.state.viewDog ? this.setState({viewDog: false}) : this.setState({viewDog: true});
+    }
 
+    apiPatchUser(id) {
+
+    }
+
+    apiPatchDog(id) {
+
+    }
+
+    updateDogs = dogs => {
+        this.setState({
+            dogs: dogs,
+            editing: false,
+            addDog: false,
+            viewDog: true,
+            currentDog: {
+                id: null,
+                userId: null,
+                name: '',
+                medication: '', 
+                specialNeeds: '',
+                walkRequirements: '',
+                birthday: '',
+                temperament: '',
+                allergies: '',
+                loudNoises: '',
+                treats: true,
+                other: '',
+                feeding: '',
+                imgUrl: ''   
+            }
+      })
+    }
+
+    updateDog = (attribute, newValue) => {
+        this.setState({currentDog: {
+            ...this.state.currentDog, 
+            [attribute]: newValue
+            }
+        })
     }
     
     render() {        
         const { profile } = this.state;
+        let profileComponent = ""
+        if(this.state.addDog){
+            profileComponent = <DogForm currentDog={this.state.currentDog} headers={this.state.headers}/>
+        } else if (this.state.viewDog) {
+            profileComponent = <DogProfile 
+            profile={this.state.profile}
+            currentDog={this.state.currentDog} 
+            />
+        }
         console.log(profile)
         return (
             <div className="container">
-                This is your profile, {profile.given_name}. Jump back to <a href='/'>Home</a> or Ping<a href='/ping'>Click Here</a>
-                <br />
-                
+                This is your profile, {profile.given_name}. Jump back to <a href='/'>Home</a> or <button onClick={this.props.auth.logout}>Logout</button>    
                 <h3>{profile.name}</h3>
                 <button>Edit Profile</button>
-                <button>Add Dog</button>
-                {
-                    this.state.addDog && 
-                    <DogForm/>
-                }
-                <DogForm currentDog={this.state.currentDog}/>
-                <DogProfile 
-                    profile={this.state.profile}
-                    currentDog={this.state.currentDog}
-                    // auth={this.props.auth}    
-                />
-                <button onClick={this.props.auth.logout}>Logout</button>    
-                <br />
-                
+                <button onClick={this.addDogClick}>Add Dog</button>
+                <button onClick={this.viewDogClick}>View Dog/s</button>
+                {profileComponent}
             </div>
         )
     }

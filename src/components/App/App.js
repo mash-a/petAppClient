@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import Main from '../Main';
 import UserProfile from '../UserProfile'; 
 import NotFound from '../NotFound';
@@ -21,13 +21,13 @@ class App extends Component {
     }
   }
 
-  componentDidMount = async () => {
+  // componentDidMount = async () => {
     //add google api to here
     // const response = await axios.get('/api/petApp')
     // const json = await response.data;
     // console.log(json.randomURL)
     // if(json) this.setState({ loading: false })
-  }
+  // }
 
   render() {
     let mainComponent = "";
@@ -47,7 +47,7 @@ class App extends Component {
     return (
       <div className="App">
         <TopNavbar {...this.props}/>
-        <div className ="body">
+        <div className="body">
           {mainComponent}
         </div>
         <Footer />
