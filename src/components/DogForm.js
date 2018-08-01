@@ -13,7 +13,8 @@ class DogForm extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        this.props.editingDog ? this.props.apiDogPatch() : this.apiPost();
+        this.apiPost();
+        // this.props.editingDog ? this.props.apiDogPatch() : 
     }
 
     apiPost = () => {
@@ -23,7 +24,7 @@ class DogForm extends Component {
             allergies, loudNoises, treats, 
             other, feeding, imgUrl, userId, headers
         } = this.props.currentDog
-        axios.post(`/api/petApp/users/${userId}`, {name, medication, specialNeeds,
+        axios.post(`https://bkbarkapp.herokuapp.com/api/petApp/users/${userId}`, {name, medication, specialNeeds,
             walkRequirements, birthday, temperament, 
             allergies, loudNoises, treats, 
             other, feeding, imgUrl, headers})

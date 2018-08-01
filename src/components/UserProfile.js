@@ -65,7 +65,8 @@ class UserProfile extends Component {
         //const id = this.state.currentProfile.id
         const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
         // await this.setProfile();
-        const user = await axios.get(`/api/petApp/users`, { headers });
+        //add heroku url to the axios.get
+        const user = await axios.get(`https://bkbarkapp.herokuapp.com/api/petApp/users`, { headers });
         const json = await user.data;
         //console.log(json.users)
         const profile = getProfile();
@@ -76,9 +77,9 @@ class UserProfile extends Component {
         //console.log(this.checkForUser(json.users, profile.sub))
         if(this.checkForUser(json.users, profile.sub)) {
             this.setState({profile: this.checkForUser(json.users, profile.sub)})
-            console.log(this.state.profile, 'line 45')
+            // console.log(this.state.profile, 'line 45')
             const userId = this.state.profile.id
-            const dogs = await axios.get(`/api/petApp/users/${userId}`, { headers })
+            const dogs = await axios.get(`https://bkbarkapp.herokuapp.com/api/petApp/users/${userId}`, { headers })
             this.setState({dogs: dogs.data, headers: headers})
            console.log(this.state.dogs)
         } else {
@@ -105,7 +106,7 @@ class UserProfile extends Component {
     }
 
     apiPost(profile, accessToken, headers) {
-        axios.post('/api/petApp/users', { profile, accessToken, headers })
+        axios.post('https://bkbarkapp.herokuapp.com/api/petApp/users', { profile, accessToken, headers })
         .then(result => console.log(result))
         .catch(err => console.error(err));
     }
@@ -145,7 +146,7 @@ class UserProfile extends Component {
                 temperament: '',
                 allergies: '',
                 loudNoises: '',
-                treats: true,
+                treats: null,
                 other: '',
                 feeding: '',
                 imgUrl: ''   
@@ -172,7 +173,6 @@ class UserProfile extends Component {
             currentDog={this.state.currentDog} 
             />
         }
-        console.log(profile)
         return (
             <div className="container">
                 This is your profile, {profile.given_name}. Jump back to <a href='/'>Home</a> or <button onClick={this.props.auth.logout}>Logout</button>    
