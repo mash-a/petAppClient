@@ -166,7 +166,12 @@ class UserProfile extends Component {
         const { profile } = this.state;
         let profileComponent = ""
         if(this.state.addDog){
-            profileComponent = <DogForm currentDog={this.state.currentDog} headers={this.state.headers}/>
+            profileComponent = <DogForm 
+            currentDog={this.state.currentDog} 
+            headers={this.state.headers}
+            updateDog={this.updateDog}
+            updateDogs={this.updateDogs}
+            />
         } else if (this.state.viewDog) {
             profileComponent = <DogProfile 
             profile={this.state.profile}
