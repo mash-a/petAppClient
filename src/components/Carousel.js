@@ -39,7 +39,7 @@ const items = [
 
 const Carousel = () => {
     return (
-        <div className="carousel"><UncontrolledCarousel className="lg" items={items} /></div>
+        <div className="carousel container"><UncontrolledCarousel className="lg" items={items} /></div>
     )
 }
 

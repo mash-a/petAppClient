@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 
 class DogProfile extends Component {
     // userId = this.props.profile.id;
@@ -7,10 +8,13 @@ class DogProfile extends Component {
         return (
             <div>
             <a 
-                    href='https://dashboard.petchecktechnology.com/' 
-                    target='_blank'
-                    rel="noopener noreferrer"
-                    >Book Care for {currentDog.name}</a>
+                href='https://dashboard.petchecktechnology.com/' 
+                target='_blank'
+                rel="noopener noreferrer"
+            >Book Care</a>
+            <p>{currentDog.birthday}</p>
+            <Button>Edit profile</Button>
+            
             </div>
         )
     }

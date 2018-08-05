@@ -1,8 +1,19 @@
 .App {
     background-color: #FCFCFC;
-
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 6rem;
 }
 
 .body {
-    padding-top: 40px;
+    margin: 0 auto;
+    padding-top: 100px;
+    max-width: 640px;
+    width: 94%;
+    padding-bottom: 300px;
+    
+}
+
+.nav-link {
+    color: black;
 }

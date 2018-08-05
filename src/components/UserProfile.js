@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DogForm from './DogForm';
 import DogProfile from './DogProfile';
+import { Button } from 'reactstrap';
+import UserForm from './UserForm';
 
 class UserProfile extends Component {
     
@@ -18,13 +20,13 @@ class UserProfile extends Component {
             editing: false,
             addDog: false,
             viewDog: false,
+            userForm: false,
             headers: {},
             currentProfile: {
                 id: null,
                 userId: '',
                 neighborhood: '',
                 displayName: ''
-
             },
             currentDog: {
                 id: null,
@@ -42,21 +44,6 @@ class UserProfile extends Component {
                 feeding: '',
                 imgUrl: ''
             }
-            // currentDog: {
-            //     id: 1,
-            //     name: 'Betsy',
-            //     medication: '', 
-            //     specialNeeds: '',
-            //     walkRequirements: '',
-            //     birthday: '',
-            //     temperament: '',
-            //     allergies: '',
-            //     loudNoises: '',
-            //     treats: true,
-            //     other: '',
-            //     feeding: '',
-            //     imgUrl: ''
-            // }
         }
     }
 
@@ -79,7 +66,8 @@ class UserProfile extends Component {
             console.log(this.state.profile, 'line 45')
             const userId = this.state.profile.id
             const dogs = await axios.get(`/api/petApp/users/${userId}`, { headers })
-            this.setState({dogs: dogs.data, headers: headers})
+            const arrOfDogs = dogs.data.dogs;
+            this.setState({dogs: arrOfDogs, headers: headers})
            console.log(this.state.dogs)
         } else {
             this.apiPost(profile, accessToken, headers)
@@ -117,7 +105,7 @@ class UserProfile extends Component {
 
     viewDogClick(e) {
         e.preventDefault();
-        this.state.viewDog ? this.setState({viewDog: false}) : this.setState({viewDog: true});
+        this.state.viewDog ? this.setState({viewDog: false}) : this.setState({viewDog: true, addDog:false});
     }
 
     apiPatchUser(id) {
@@ -128,6 +116,11 @@ class UserProfile extends Component {
 
     }
 
+    viewUserForm = (e) => {
+        e.preventDefault();
+        this.state.viewUserForm ? this.setState({viewUserForm: false}) : this.setState({viewDog: false, addDog: false, viewUserForm: true})
+    }
+
     updateDogs = dogs => {
         this.setState({
             dogs: dogs,
@@ -136,7 +129,6 @@ class UserProfile extends Component {
             viewDog: true,
             currentDog: {
                 id: null,
-                userId: null,
                 name: '',
                 medication: '', 
                 specialNeeds: '',
@@ -160,34 +152,66 @@ class UserProfile extends Component {
             }
         })
     }
-    
+
+    updateUser = (att, newVal) => {
+        this.setState({currentProfile: {
+            ...this.state.currentProfile,
+            [att]: newVal
+            }
+        })
+    }
+
+    updateUsers = user => {
+        this.setState({
+            profile: user,
+            editing: false,
+            currentProfile: {
+                id: null,
+                userId: '',
+                neighborhood: '',
+                displayName: ''  
+            }
+      })
+    }
+   
     render() {        
-        const { profile } = this.state;
+        const { profile, dogs } = this.state;
         let profileComponent = ""
         if(this.state.addDog){
-            profileComponent = <DogForm currentDog={this.state.currentDog} headers={this.state.headers}/>
+            profileComponent = <DogForm 
+                currentDog={this.state.currentDog} 
+                headers={this.state.headers}
+                updateDog={this.updateDog}
+                updateDogs={this.updateDogs}
+                profile={this.state.profile}
+            />
         } else if (this.state.viewDog) {
             profileComponent = <DogProfile 
-            profile={this.state.profile}
-            currentDog={this.state.currentDog} 
+                profile={this.state.profile}
+                currentDog={this.state.currentDog} 
             />
+        } else if (this.state.viewUserForm) {
+            profileComponent = <UserForm 
+                profile={this.state.profile}
+                updateUser={this.updateUser}
+                />
         }
-        console.log(profile)
         return (
             <div className="container">
-                This is your profile, {profile.given_name}. Jump back to <a href='/'>Home</a> or <button onClick={this.props.auth.logout}>Logout</button>    
-                <h3>{profile.name}</h3>
-                <button>Edit Profile</button>
-                <button onClick={this.addDogClick}>Add Dog</button>
-                <button onClick={this.viewDogClick}>View Dog/s</button>
+                This is your profile, {profile.display_name}. Jump back to <a href='/'>Home</a> or <Button onClick={this.props.auth.logout}>Logout</Button>    
+                <h3>{profile.neighborhood}</h3>
+                <Button>Edit Profile</Button>
+                <Button onClick={this.addDogClick}>Add Dog</Button>
+                <Button onClick={this.viewDogClick}>View Dog/s</Button>
+                {console.log(dogs)}
+                {
+                    dogs.map(dog => (<p key={dog.id}>{dog.name}</p>))
+                }
                 {profileComponent}
             </div>
         )
     }
 
 }
-
-
-//<pre>{JSON.stringify(profile, null, 2)}</pre> to view what the profile is returning from the setState
 
 export default UserProfile;

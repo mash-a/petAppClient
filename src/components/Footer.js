@@ -11,8 +11,8 @@ class Footer extends Component {
             <div className="footer">
                 <Nav className="container">
                     <img src={require('../BB-Logo-awards-for-newletter.jpg')} alt="" className="bbLogo"/>
-                    <NavItem className="text-center">
-                    <p>2018 | Brooklyn Bark</p>
+                    <NavItem className="copyright">
+                        <p className="text">2018 | Brooklyn Bark</p>
                     </NavItem>
                 </Nav>
             </div>

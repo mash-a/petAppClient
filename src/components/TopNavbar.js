@@ -18,6 +18,15 @@ class TopNavbar extends Component {
                     </NavbarBrand>
                     <Nav>
                         <NavItem>
+                            <NavLink href="/">Home</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/">Services</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/about">About Us</NavLink>
+                        </NavItem>
+                        <NavItem>
                         {
                             this.props.auth.isAuthenticated() &&
                             <NavLink href="/profile">Profile</NavLink>
@@ -26,12 +35,6 @@ class TopNavbar extends Component {
                             !this.props.auth.isAuthenticated() &&
                             <NavLink href="/main">Login/Sign Up</NavLink>
                         }
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="/">Home</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="">Services</NavLink>
                         </NavItem>
                     </Nav>
                  </Navbar>
