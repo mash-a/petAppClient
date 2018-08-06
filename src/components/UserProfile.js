@@ -198,7 +198,7 @@ class UserProfile extends Component {
         }
         return (
             <div className="container">
-                This is your profile, {profile.display_name}. Jump back to <a href='/'>Home</a> or <Button onClick={this.props.auth.logout}>Logout</Button>    
+                This is your profile, {profile.display_name}. <Button onClick={this.props.auth.logout}>Logout</Button>    
                 <h3>{profile.neighborhood}</h3>
                 <Button>Edit Profile</Button>
                 <Button onClick={this.addDogClick}>Add Dog</Button>

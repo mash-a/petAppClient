@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 //import Auth from '../utils/Auth';
+import './ComponentCSS/Main.css'
 
 class Main extends Component {
     render() {
         return (
-            <div className="container">
+            <div className="container login">
                 {!this.props.auth.isAuthenticated() &&
                 <div>
                     <hr />

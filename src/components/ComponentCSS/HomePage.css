@@ -1,0 +1,16 @@
+.homepage {
+    height: 500px;
+    background-image: url('../../pug.jpg');
+    background-position: 50% 0%;
+    background-size: cover;
+    background-color: #FCFCFC;
+    color: black; 
+    display: block;
+    position: relative;
+    height: 767px;
+    opacity: 0.8;
+}
+
+h1 {
+    justify-content: center;
+}
