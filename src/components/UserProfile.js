@@ -4,6 +4,7 @@ import DogForm from './DogForm';
 import DogProfile from './DogProfile';
 import { Button } from 'reactstrap';
 import UserForm from './UserForm';
+import './ComponentCSS/UserProfile.css'
 
 class UserProfile extends Component {
     
@@ -197,15 +198,13 @@ class UserProfile extends Component {
                 />
         }
         return (
-            <div className="container">
+            <div className="container user">
                 This is your profile, {profile.display_name}. <Button onClick={this.props.auth.logout}>Logout</Button>    
                 <h3>{profile.neighborhood}</h3>
                 <Button>Edit Profile</Button>
                 <Button onClick={this.addDogClick}>Add Dog</Button>
-                <Button onClick={this.viewDogClick}>View Dog/s</Button>
-                {console.log(dogs)}
                 {
-                    dogs.map(dog => (<p key={dog.id}>{dog.name}</p>))
+                    dogs.map(dog => (<DogProfile key={dog.id} dog={dog} />))
                 }
                 {profileComponent}
             </div>

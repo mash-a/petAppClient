@@ -13,6 +13,7 @@ class TopNavbar extends Component {
         return (
             <div>
                  <Navbar className="navbar">
+                 <div className="container">
                     <NavbarBrand>
                         <img src={require('../bkbarklogoletters.svg')} alt=""/>
                     </NavbarBrand>
@@ -37,6 +38,7 @@ class TopNavbar extends Component {
                         }
                         </NavItem>
                     </Nav>
+                    </div>
                  </Navbar>
                  
             </div>

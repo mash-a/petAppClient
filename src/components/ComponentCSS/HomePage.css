@@ -11,6 +11,15 @@
     opacity: 0.8;
 }
 
-h1 {
-    justify-content: center;
+.header {
+    padding-top: 5rem;
+    text-align: center;
+}
+
+.carousel {
+    background-color: #D6A779;
+}
+
+.services {
+    height: 20rem;
 }
