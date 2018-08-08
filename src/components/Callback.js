@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Auth from "../utils/Auth";
+import './ComponentCSS/Callback.css';
 
 class Callback extends Component {
     
@@ -11,7 +12,7 @@ class Callback extends Component {
     render() {
         return (
             <div className="container">
-                <p>Loading....</p>
+                <p className="loading"></p>
             </div>
         )
     }

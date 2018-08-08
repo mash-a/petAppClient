@@ -1,0 +1,63 @@
+.homepage {
+    height: 500px;
+    background-image: url('../../pug.jpg');
+    background-position: 50% 0%;
+    background-size: cover;
+    background-color: #FCFCFC;
+    color: black; 
+    display: block;
+    position: relative;
+    height: 767px;
+    opacity: 0.8;
+}
+
+.header {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 20rem;
+}
+
+.services {
+    /* height: 30rem; */
+    padding-top: 2rem;
+    margin-bottom: 5rem;
+}
+
+ul {
+    list-style-type: none;
+    font-size: 1.2rem;
+}
+
+.fas {
+    color: #EB5F00;
+    margin: 1rem;
+}
+
+.consultation {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: column;
+    background-image: url('../../blackpug.jpg');
+    background-position: 0% 50%;
+    background-size: cover;
+    background-color: #FCFCFC;
+    color: white;
+}
+
+.subtitles {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.pug {
+    height: 100%;
+    width: 100%;
+    border-radius: 10%;
+}
+
+.servicesHeader {
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

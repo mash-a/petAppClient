@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DogForm from './DogForm';
 import DogProfile from './DogProfile';
+import { Button } from 'reactstrap';
+import UserForm from './UserForm';
+import './ComponentCSS/UserProfile.css'
 
 class UserProfile extends Component {
     
@@ -18,13 +21,14 @@ class UserProfile extends Component {
             editing: false,
             addDog: false,
             viewDog: false,
+            userForm: false,
             headers: {},
+            modal: false,
             currentProfile: {
                 id: null,
                 userId: '',
                 neighborhood: '',
-                displayName: ''
-
+                display_name: ''
             },
             currentDog: {
                 id: null,
@@ -42,45 +46,25 @@ class UserProfile extends Component {
                 feeding: '',
                 imgUrl: ''
             }
-            // currentDog: {
-            //     id: 1,
-            //     name: 'Betsy',
-            //     medication: '', 
-            //     specialNeeds: '',
-            //     walkRequirements: '',
-            //     birthday: '',
-            //     temperament: '',
-            //     allergies: '',
-            //     loudNoises: '',
-            //     treats: true,
-            //     other: '',
-            //     feeding: '',
-            //     imgUrl: ''
-            // }
         }
     }
 
     componentDidMount = async () => {
         const { getProfile, getAccessToken} = this.props.auth;
-        //const id = this.state.currentProfile.id
         const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-        // await this.setProfile();
-        //add heroku url to the axios.get
         const user = await axios.get(`https://bkbarkapp.herokuapp.com/api/petApp/users`, { headers });
         const json = await user.data;
-        //console.log(json.users)
         const profile = getProfile();
         const accessToken = getAccessToken();
-        //console.log('accessToken', accessToken)
-        //console.log(user)
         
-        //console.log(this.checkForUser(json.users, profile.sub))
         if(this.checkForUser(json.users, profile.sub)) {
             this.setState({profile: this.checkForUser(json.users, profile.sub)})
             // console.log(this.state.profile, 'line 45')
             const userId = this.state.profile.id
+
             const dogs = await axios.get(`https://bkbarkapp.herokuapp.com/api/petApp/users/${userId}`, { headers })
-            this.setState({dogs: dogs.data, headers: headers})
+            const arrOfDogs = dogs.data.dogs;
+            this.setState({dogs: arrOfDogs, headers: headers})
            console.log(this.state.dogs)
         } else {
             this.apiPost(profile, accessToken, headers)
@@ -118,15 +102,29 @@ class UserProfile extends Component {
 
     viewDogClick(e) {
         e.preventDefault();
-        this.state.viewDog ? this.setState({viewDog: false}) : this.setState({viewDog: true});
+        this.state.viewDog ? this.setState({viewDog: false}) : this.setState({viewDog: true, addDog:false});
     }
 
-    apiPatchUser(id) {
-
+    apiPatchUser = () => {
+        const {id, neighborhood, display_name} = this.state.currentProfile
+        axios.patch(`/api/petApp/users/${id}`, {neighborhood, display_name})
+        .then((result) => {
+            this.updateUsers(result.data)
+        })
     }
 
     apiPatchDog(id) {
 
+    }
+
+    viewUserForm = (e) => {
+        e.preventDefault();
+        this.state.viewUserForm ? this.setState({viewUserForm: false}) : this.setState({
+            viewDog: false, 
+            addDog: false, 
+            viewUserForm: true,
+            currentProfile: this.state.profile
+        })
     }
 
     updateDogs = dogs => {
@@ -137,7 +135,6 @@ class UserProfile extends Component {
             viewDog: true,
             currentDog: {
                 id: null,
-                userId: null,
                 name: '',
                 medication: '', 
                 specialNeeds: '',
@@ -161,33 +158,69 @@ class UserProfile extends Component {
             }
         })
     }
-    
+
+    updateUser = (att, newVal) => {
+        this.setState({currentProfile: {
+            ...this.state.currentProfile,
+            [att]: newVal
+            }
+        })
+    }
+
+    updateUsers = user => {
+        this.setState({
+            profile: user,
+            editing: false,
+            currentProfile: {
+                id: null,
+                userId: '',
+                neighborhood: '',
+                displayName: ''  
+            }
+      })
+    }
+   
     render() {        
-        const { profile } = this.state;
+        const { profile, dogs } = this.state;
         let profileComponent = ""
         if(this.state.addDog){
-            profileComponent = <DogForm currentDog={this.state.currentDog} headers={this.state.headers}/>
+            profileComponent = <DogForm 
+                currentDog={this.state.currentDog} 
+                headers={this.state.headers}
+                updateDog={this.updateDog}
+                updateDogs={this.updateDogs}
+                profile={this.state.profile}
+            />
         } else if (this.state.viewDog) {
             profileComponent = <DogProfile 
-            profile={this.state.profile}
-            currentDog={this.state.currentDog} 
+                profile={this.state.profile}
+                currentDog={this.state.currentDog} 
             />
+        } else if (this.state.viewUserForm) {
+            profileComponent = <UserForm 
+                profile={this.state.profile}
+                updateUser={this.updateUser}
+                apiPatchUser={this.apiPatchUser}
+                />
         }
         return (
-            <div className="container">
-                This is your profile, {profile.given_name}. Jump back to <a href='/'>Home</a> or <button onClick={this.props.auth.logout}>Logout</button>    
-                <h3>{profile.name}</h3>
-                <button>Edit Profile</button>
-                <button onClick={this.addDogClick}>Add Dog</button>
-                <button onClick={this.viewDogClick}>View Dog/s</button>
+            <div className="container user">
+                <h3>Welcome, {profile.display_name}.</h3> 
+                <Button onClick={this.props.auth.logout}>Logout</Button>    
+                <h4>Your neighborhood: {profile.neighborhood}</h4>
+                {console.log(this.state.currentProfile)}
+                <Button onClick={this.viewUserForm}>{this.state.viewUserForm ? "Cancel" : "Edit Profile"}</Button>
+                <Button onClick={this.addDogClick}>{this.state.addDog ? "Cancel" : "AddDog"}</Button>
+                <div className="dogs">
+                    {
+                        dogs.map(dog => (<DogProfile key={dog.id} dog={dog} />))
+                    }
+                </div>
                 {profileComponent}
             </div>
         )
     }
 
 }
-
-
-//<pre>{JSON.stringify(profile, null, 2)}</pre> to view what the profile is returning from the setState
 
 export default UserProfile;
