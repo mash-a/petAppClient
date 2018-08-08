@@ -23,6 +23,7 @@ class UserProfile extends Component {
             viewDog: false,
             userForm: false,
             headers: {},
+            modal: false,
             currentProfile: {
                 id: null,
                 userId: '',
@@ -50,18 +51,12 @@ class UserProfile extends Component {
 
     componentDidMount = async () => {
         const { getProfile, getAccessToken} = this.props.auth;
-        //const id = this.state.currentProfile.id
         const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-        // await this.setProfile();
         const user = await axios.get(`/api/petApp/users`, { headers });
         const json = await user.data;
-        //console.log(json.users)
         const profile = getProfile();
         const accessToken = getAccessToken();
-        //console.log('accessToken', accessToken)
-        //console.log(user)
         
-        //console.log(this.checkForUser(json.users, profile.sub))
         if(this.checkForUser(json.users, profile.sub)) {
             this.setState({profile: this.checkForUser(json.users, profile.sub)})
             console.log(this.state.profile, 'line 45')

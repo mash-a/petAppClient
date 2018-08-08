@@ -10,13 +10,13 @@ class HomePage extends Component {
             <div>
                 <div className="homepage">
                     <Row className="container">
-                        <Col sm="4">
+                        <Col md="3">
                             <h1 className="header">Your Personalized, Local Pet Care Experience</h1>
                         </Col>
                     </Row>
                 </div>
                 <div className="container services">
-                    <h4>Our Services</h4>
+                    <h4 className="servicesHeader">Our Services</h4>
                     <Row>
                     <Col>
                     <ul>

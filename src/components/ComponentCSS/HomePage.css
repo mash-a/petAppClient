@@ -4,7 +4,7 @@
     background-position: 50% 0%;
     background-size: cover;
     background-color: #FCFCFC;
-    color: white; 
+    color: black; 
     display: block;
     position: relative;
     height: 767px;
@@ -14,11 +14,7 @@
 .header {
     display: inline-flex;
     flex-direction: column;
-    align-items: center;
-}
-
-.carousel {
-    background-color: #D6A779;
+    padding: 20rem;
 }
 
 .services {
@@ -57,4 +53,11 @@ ul {
     height: 100%;
     width: 100%;
     border-radius: 10%;
+}
+
+.servicesHeader {
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
