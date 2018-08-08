@@ -27,7 +27,7 @@ class UserProfile extends Component {
                 id: null,
                 userId: '',
                 neighborhood: '',
-                displayName: ''
+                display_name: ''
             },
             currentDog: {
                 id: null,
@@ -109,8 +109,12 @@ class UserProfile extends Component {
         this.state.viewDog ? this.setState({viewDog: false}) : this.setState({viewDog: true, addDog:false});
     }
 
-    apiPatchUser(id) {
-
+    apiPatchUser = () => {
+        const {id, neighborhood, display_name} = this.state.currentProfile
+        axios.patch(`/api/petApp/users/${id}`, {neighborhood, display_name})
+        .then((result) => {
+            this.updateUsers(result.data)
+        })
     }
 
     apiPatchDog(id) {
@@ -119,7 +123,12 @@ class UserProfile extends Component {
 
     viewUserForm = (e) => {
         e.preventDefault();
-        this.state.viewUserForm ? this.setState({viewUserForm: false}) : this.setState({viewDog: false, addDog: false, viewUserForm: true})
+        this.state.viewUserForm ? this.setState({viewUserForm: false}) : this.setState({
+            viewDog: false, 
+            addDog: false, 
+            viewUserForm: true,
+            currentProfile: this.state.profile
+        })
     }
 
     updateDogs = dogs => {
@@ -195,17 +204,22 @@ class UserProfile extends Component {
             profileComponent = <UserForm 
                 profile={this.state.profile}
                 updateUser={this.updateUser}
+                apiPatchUser={this.apiPatchUser}
                 />
         }
         return (
             <div className="container user">
-                This is your profile, {profile.display_name}. <Button onClick={this.props.auth.logout}>Logout</Button>    
-                <h3>{profile.neighborhood}</h3>
-                <Button>Edit Profile</Button>
-                <Button onClick={this.addDogClick}>Add Dog</Button>
-                {
-                    dogs.map(dog => (<DogProfile key={dog.id} dog={dog} />))
-                }
+                <h3>Welcome, {profile.display_name}.</h3> 
+                <Button onClick={this.props.auth.logout}>Logout</Button>    
+                <h4>Your neighborhood: {profile.neighborhood}</h4>
+                {console.log(this.state.currentProfile)}
+                <Button onClick={this.viewUserForm}>{this.state.viewUserForm ? "Cancel" : "Edit Profile"}</Button>
+                <Button onClick={this.addDogClick}>{this.state.addDog ? "Cancel" : "AddDog"}</Button>
+                <div className="dogs">
+                    {
+                        dogs.map(dog => (<DogProfile key={dog.id} dog={dog} />))
+                    }
+                </div>
                 {profileComponent}
             </div>
         )

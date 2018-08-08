@@ -18,7 +18,7 @@ class DogProfile extends Component {
                         target='_blank'
                         rel="noopener noreferrer"
                         >Book Care</a></CardSubtitle>
-                        <CardText>{dog.walk_requirements}</CardText>
+                        <CardText>Walks: {dog.walk_requirements}</CardText>
                         <i className="fas fa-pencil-alt"></i>
                         <i className="fas fa-trash-alt"></i>
                         <i className="fas fa-eye"></i>

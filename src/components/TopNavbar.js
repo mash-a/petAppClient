@@ -22,7 +22,7 @@ class TopNavbar extends Component {
                             <NavLink href="/">Home</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/">Services</NavLink>
+                            <NavLink href="/services">Services</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/about">About Us</NavLink>

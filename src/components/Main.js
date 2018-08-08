@@ -9,7 +9,7 @@ class Main extends Component {
                 {!this.props.auth.isAuthenticated() &&
                 <div>
                     <hr />
-                    Please login first
+                    Login or sign up to create a profile for yourself and your pet/s.
                     <hr />
                     <button onClick={this.props.auth.login}>Login</button>
                 </div>

@@ -9,31 +9,19 @@ const items = [
         src: require('../afewdogs.jpg'),
         altText: 'Slide 1',
         // caption: 'Hanging Out',
-        // header: 'Slide 1 Header'
+        header: 'Out on a walk'
       },
       {
         src: require('../rooandphoebe.png'),
         altText: 'Slide 1',
         // caption: 'Slide 1',
-        // header: 'Slide 1 Header'
+        header: 'Pups enjoying Fort Greene Park'
       },
       {
         src: require('../seancasey.png'),
         altText: 'Slide 1',
         // caption: 'Slide 1',
-        // header: 'Slide 1 Header'
-      },
-      {
-        src: require('../peggy.jpg'),
-        altText: 'Slide 1',
-        // caption: 'Slide 1',
-        // header: 'Slide 1 Header'
-      },
-      {
-        src: require('../ruby.jpg'),
-        altText: 'Slide 1',
-        // caption: 'Slide 1',
-        // header: 'Slide 1 Header',
+        header: 'Sean Casey Annual Dog Wash'
       },
 ];
 

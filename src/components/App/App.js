@@ -9,6 +9,7 @@ import TopNavbar from '../TopNavbar';
 import HomePage from '../HomePage';
 import Footer from '../Footer';
 import AboutUs from '../AboutUs';
+import Services from '../Services';
 
 import './App.css';
 
@@ -44,7 +45,9 @@ class App extends Component {
       mainComponent = <HomePage />
     }  else if (this.props.location === "about") {
       mainComponent = <AboutUs />
-    } else {
+    } else if (this.props.location === "services") {
+      mainComponent = <Services />
+    }else {
       mainComponent = <NotFound />
     }
     return (

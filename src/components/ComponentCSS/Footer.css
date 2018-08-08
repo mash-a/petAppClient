@@ -9,10 +9,9 @@
     display: block;
   }
 
-  .nav {
-      justify-content: center;
-      display: flex;
-  }
+.copyright, .social {
+    justify-content: center;
+}
 
 .bbLogo {
     width: 100%;
@@ -22,6 +21,6 @@
 .fab {
     border-radius: 50%;
     color: grey;
-    font-size: 2.5rem;
-    padding: 1rem;
+    font-size: 1.5rem;
+    padding: 0.2rem;
 }
