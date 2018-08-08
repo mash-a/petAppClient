@@ -208,7 +208,7 @@ class UserProfile extends Component {
                 <h3>Welcome, {profile.display_name}.</h3> 
                 <Button onClick={this.props.auth.logout}>Logout</Button>    
                 <h4>Your neighborhood: {profile.neighborhood}</h4>
-                {console.log(this.state.currentProfile)}
+                {console.log(this.state.profile)}
                 <Button onClick={this.viewUserForm}>{this.state.viewUserForm ? "Cancel" : "Edit Profile"}</Button>
                 <Button onClick={this.addDogClick}>{this.state.addDog ? "Cancel" : "AddDog"}</Button>
                 <div className="dogs">
