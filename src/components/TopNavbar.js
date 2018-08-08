@@ -13,10 +13,20 @@ class TopNavbar extends Component {
         return (
             <div>
                  <Navbar className="navbar">
+                 <div className="container">
                     <NavbarBrand>
                         <img src={require('../bkbarklogoletters.svg')} alt=""/>
                     </NavbarBrand>
                     <Nav>
+                        <NavItem>
+                            <NavLink href="/">Home</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/services">Services</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/about">About Us</NavLink>
+                        </NavItem>
                         <NavItem>
                         {
                             this.props.auth.isAuthenticated() &&
@@ -27,13 +37,8 @@ class TopNavbar extends Component {
                             <NavLink href="/main">Login/Sign Up</NavLink>
                         }
                         </NavItem>
-                        <NavItem>
-                            <NavLink href="/">Home</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="">Services</NavLink>
-                        </NavItem>
                     </Nav>
+                    </div>
                  </Navbar>
                  
             </div>

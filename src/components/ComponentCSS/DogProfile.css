@@ -1,0 +1,12 @@
+.card {
+    float: left;
+    width: 20rem;
+    padding: 1rem;
+    margin: 2rem;
+    height: 15rem;
+}
+
+.fas {
+    padding: 0.25rem;
+    cursor: pointer;
+}

@@ -1,0 +1,28 @@
+blockquote {
+    border: 0;
+    margin: auto;
+    padding: 0;
+    background: none;
+    color: #EB5F00;
+    font-family: Georgia, serif;
+    font-size: 1.5em;
+    font-style: italic;
+    line-height: 1.4 !important;
+    margin: 0;
+    position: relative;
+    text-shadow: 0 1px white;
+    z-index: 600;
+}
+
+blockquote:before {
+    color: #EB5F00;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+  }
+
+  blockquote p {
+    display: inline;
+  }

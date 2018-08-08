@@ -8,6 +8,8 @@ import Ping from '../Ping';
 import TopNavbar from '../TopNavbar';
 import HomePage from '../HomePage';
 import Footer from '../Footer';
+import AboutUs from '../AboutUs';
+import Services from '../Services';
 
 import './App.css';
 
@@ -41,16 +43,22 @@ class App extends Component {
       mainComponent = this.props.auth.isAuthenticated() ? <Ping {...this.props} /> : <NotFound />
     }  else if (this.props.location === "") {
       mainComponent = <HomePage />
-    } else {
+    }  else if (this.props.location === "about") {
+      mainComponent = <AboutUs />
+    } else if (this.props.location === "services") {
+      mainComponent = <Services />
+    }else {
       mainComponent = <NotFound />
     }
     return (
       <div className="App">
         <TopNavbar {...this.props}/>
-        <div className="body">
+        <div className="mainComponent">
           {mainComponent}
         </div>
-        <Footer />
+        <div className="footer">
+          <Footer />
+        </div>
       </div>
     );
   }

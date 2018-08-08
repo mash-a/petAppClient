@@ -1,0 +1,12 @@
+.user {
+    margin-bottom: 10rem;
+}
+
+.btn {
+    margin: 0.2rem;
+}
+
+.dogs {
+    display: inline-flex;
+    flex-direction: row-reverse;
+}
