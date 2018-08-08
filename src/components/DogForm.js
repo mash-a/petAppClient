@@ -27,7 +27,7 @@ class DogForm extends Component {
         const { id } = this.props.profile;
         const userId = id;
         console.log(headers, 'dogForm')
-        axios.post(`/api/petApp/users/${userId}`, {name, medication, specialNeeds,
+        axios.post(`https://bkbarkapp.herokuapp.com/api/petApp/users/${userId}`, {name, medication, specialNeeds,
             walkRequirements, birthday, temperament, 
             allergies, loudNoises, treats, 
             other, feeding, imgUrl, headers})

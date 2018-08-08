@@ -52,16 +52,17 @@ class UserProfile extends Component {
     componentDidMount = async () => {
         const { getProfile, getAccessToken} = this.props.auth;
         const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-        const user = await axios.get(`/api/petApp/users`, { headers });
+        const user = await axios.get(`https://bkbarkapp.herokuapp.com/api/petApp/users`, { headers });
         const json = await user.data;
         const profile = getProfile();
         const accessToken = getAccessToken();
         
         if(this.checkForUser(json.users, profile.sub)) {
             this.setState({profile: this.checkForUser(json.users, profile.sub)})
-            console.log(this.state.profile, 'line 45')
+            // console.log(this.state.profile, 'line 45')
             const userId = this.state.profile.id
-            const dogs = await axios.get(`/api/petApp/users/${userId}`, { headers })
+
+            const dogs = await axios.get(`https://bkbarkapp.herokuapp.com/api/petApp/users/${userId}`, { headers })
             const arrOfDogs = dogs.data.dogs;
             this.setState({dogs: arrOfDogs, headers: headers})
            console.log(this.state.dogs)
@@ -89,7 +90,7 @@ class UserProfile extends Component {
     }
 
     apiPost(profile, accessToken, headers) {
-        axios.post('/api/petApp/users', { profile, accessToken, headers })
+        axios.post('https://bkbarkapp.herokuapp.com/api/petApp/users', { profile, accessToken, headers })
         .then(result => console.log(result))
         .catch(err => console.error(err));
     }
@@ -142,7 +143,7 @@ class UserProfile extends Component {
                 temperament: '',
                 allergies: '',
                 loudNoises: '',
-                treats: true,
+                treats: null,
                 other: '',
                 feeding: '',
                 imgUrl: ''   

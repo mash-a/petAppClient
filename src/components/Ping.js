@@ -14,7 +14,7 @@ class Ping extends Component {
     };
 
     ping() {
-        axios.get('http://localhost:3004/api/petApp/private')
+        axios.get('https://bkbarkapp.herokuapp.com/api/petApp/private')
             .then(res => this.setState({ message: res.data.message }))
             .catch(err => this.setState({ message: err.message }));
     };
@@ -22,7 +22,7 @@ class Ping extends Component {
     securedPing() {
         const { getAccessToken } = this.props.auth;
         const headers = { 'Authorization': `Bearer ${getAccessToken()}`}
-        axios.get('http://localhost:3004/api/petApp/private', { headers })
+        axios.get(' https://bkbarkapp.herokuapp.com/api/petApp/private', { headers })
             .then(res => this.setState({ message: res.data.message }))
             .catch(err => this.setState({ message: err.message}));
     };
